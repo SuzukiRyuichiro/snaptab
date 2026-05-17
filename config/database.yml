@@ -19,7 +19,6 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
-
 development:
   <<: *default
   database: snaptab_development
@@ -87,6 +86,7 @@ test:
 production:
   primary: &primary_production
     <<: *default
+    urL: <%= ENV["DATABASE_URL"] %>
     database: snaptab_production
     username: snaptab
     password: <%= ENV["SNAPTAB_DATABASE_PASSWORD"] %>
