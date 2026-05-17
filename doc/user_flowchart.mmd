@@ -1,0 +1,79 @@
+flowchart TD
+
+    A[User opens app] --> B{What does user want to do?}
+
+    B --> C[Capture receipt]
+    B --> D[Voice input expense]
+    B --> E[View spending summary]
+    B --> F[Manage recurring expenses]
+
+    %% Receipt Flow
+    C --> G[Take photo of receipt]
+    G --> H[AI reads receipt and detects items, totals, and categories]
+    H --> I{Add extra context?}
+
+    I -->|No| J[Expense automatically recorded]
+
+    I -->|Split by X| K[User selects split amount]
+    K --> L[AI calculates personal share]
+    L --> J
+
+    I -->|Explain by voice| M[User explains what they personally spent]
+    M --> N[AI adjusts expense amount and categories]
+    N --> J
+
+    J --> O[Show quick summary dialog]
+    O --> P{Is anything wrong?}
+
+    P -->|No| Q[User closes app]
+    P -->|Yes| R[User edits by voice or manual input]
+    R --> S[Expense updated]
+    S --> Q
+
+    %% Voice Flow
+    D --> T[User speaks naturally about spending]
+    T --> U[AI extracts amount, categories, splits, personal share, and notes]
+    U --> V[Expense automatically recorded]
+
+    V --> W[Show quick summary dialog]
+    W --> X{Is anything wrong?}
+
+    X -->|No| Y[User closes app]
+    X -->|Yes| Z[User edits expense by voice or manual input]
+    Z --> AA[Expense updated]
+    AA --> Y
+
+    %% Summary Flow
+    E --> AB[User sees spending dashboard]
+    AB --> AC[View categories and pie charts]
+    AC --> AD[User checks spending trends]
+    AD --> AE[User closes app]
+
+    %% Recurring Expense Flow
+    F --> AF{First time setup or editing existing?}
+
+    AF -->|First time setup| AG[User adds rent, subscriptions, utilities, or insurance]
+    AF -->|Edit existing| AH[User views recurring expense list]
+
+    AG --> AI[User enters amount and category]
+    AI --> AJ{Specify payment date?}
+
+    AJ -->|Yes| AK[User selects payment day]
+    AJ -->|No| AL[Save without payment date]
+
+    AK --> AM[Recurring expense saved]
+    AL --> AM
+
+    AH --> AN{What does user want to change?}
+
+    AN -->|Edit amount| AO[Update recurring expense]
+    AN -->|Edit payment day| AP[Update payment schedule]
+    AN -->|Delete recurring expense| AQ[Remove recurring expense]
+
+    AO --> AR[Changes saved]
+    AP --> AR
+    AQ --> AR
+
+    AM --> AS[User returns to dashboard]
+    AR --> AS
+    AS --> AT[User closes app]
