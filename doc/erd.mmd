@@ -1,0 +1,41 @@
+---
+title: ER Diagram for SnapTab
+---
+erDiagram
+    USERS {
+        integer id PK "primary key"
+        string email "unique"
+        string password_digest "encrypted password"
+        string currency "default denomination, e.g., 'JPY'"
+        datetime created_at
+        datetime updated_at
+    }
+    CATEGORIES {
+        integer id PK
+        string name "pre‑defined category name"
+        datetime created_at
+        datetime updated_at
+    }
+    EXPENSES {
+        integer id PK
+        integer user_id FK "references USERS.id"
+        integer category_id FK "references CATEGORIES.id"
+        date expense_date "date of tracking"
+        string description
+        decimal amount "store in smallest unit (e.g., yen cents)"
+        string currency "optional, default from user"
+        datetime created_at
+        datetime updated_at
+    }
+    USERS ||--o{ EXPENSES : "has many"
+    CATEGORIES ||--o{ EXPENSES : "categorizes"
+    RECURRING_PAYMENTS {
+        integer id PK "primary key"
+        integer user_id FK "references USERS.id"
+        string interval "monthly | yearly"
+        integer day_of_month "day of month (default 1, nullable)"
+        integer amount "monthly payment amount"
+        datetime created_at
+        datetime updated_at
+    }
+    USERS ||--o{ RECURRING_PAYMENTS : "has many"
