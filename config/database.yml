@@ -86,7 +86,7 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    urL: <%= ENV["DATABASE_URL"] %>
+    url: <%= ENV["DATABASE_URL"] %>
     database: snaptab_production
     username: snaptab
     password: <%= ENV["SNAPTAB_DATABASE_PASSWORD"] %>
