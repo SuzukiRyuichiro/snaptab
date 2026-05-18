@@ -29,7 +29,7 @@ erDiagram
     }
     USERS ||--o{ EXPENSES : "has many"
     CATEGORIES ||--o{ EXPENSES : "categorizes"
-    RECURRING_PAYMENTS {
+    SUBSCRIPTIONS {
         integer id PK "primary key"
         integer user_id FK "references USERS.id"
         string interval "monthly | yearly"
@@ -38,4 +38,4 @@ erDiagram
         datetime created_at
         datetime updated_at
     }
-    USERS ||--o{ RECURRING_PAYMENTS : "has many"
+    USERS ||--o{ SUBSCRIPTIONS : "has many"
