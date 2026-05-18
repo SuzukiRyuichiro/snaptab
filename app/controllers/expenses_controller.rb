@@ -1,10 +1,11 @@
 class ExpensesController < ApplicationController
   def index
-    @expenses = Current.user.expenses
+    @expenses = policy_scope(Expense)
   end
 
   def new
     @expense = Expense.new
+    authorize @expense
   end
 
   def create
