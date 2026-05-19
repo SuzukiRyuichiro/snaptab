@@ -1,25 +1,10 @@
 Expense.destroy_all
 User.destroy_all
-
-
 user = User.create!(email_address: 'mail@mail.com', password: '123123')
 
 # Create categories for the user
-puts 'Creating categories...'
-categories_data = [
-  'Food', 'Transport', 'Utilities', 'Rent', 'Entertainment',
-  'Shopping', 'Health', 'Education', 'Miscellaneous'
-]
-
-categories = categories_data.map do |name|
-  Category.find_or_create_by!(name: name)
-  # You might want to remove this puts if it's too verbose for a production seed file
-  # puts "- Category '#{name}' created or found."
-end
-
-puts "Categories created/found: #{categories.count}"
-
 # Create about 40 dummy expenses
+
 puts 'Creating dummy expenses...'
 descriptions = [
   'Lunch', 'Dinner', 'Coffee', 'Groceries', 'Train ticket', 'Bus fare',
@@ -31,6 +16,8 @@ descriptions = [
   'Gym Membership', 'Software License', 'Travel Expenses', 'Restaurant Meal',
   'Bar Tab', 'Hobby Supplies', 'Magazine Subscription', 'Mobile Phone Bill'
 ]
+
+categories = Category.all
 
 40.times do
   category = categories.sample

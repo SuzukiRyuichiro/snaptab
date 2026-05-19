@@ -9,6 +9,7 @@ Snaptab is a simple, mobile first, dumb-free expense tracking app for lazy young
 - **Backend:** Rails 8.0, Ruby 3.3.5, PostgreSQL
 - **Frontend:** Tailwind CSS 4, Stimulus, Turbo Rails, DaisyUI.
 - **Auth:** Rails built in authentication
+- **Authorization:** Pundig built by varvet.
 - **Testing:** RSpec, Capybara with Cuprite, FactoryBot, WebMock/VCR
 
 ## Common Commands
@@ -36,7 +37,7 @@ bin/erb_lint --lint-all  # ERB template linting
 
 - **Routes** are under `config/routes/`
 - **Service objects** in `app/services/` encapsulate business logic.
-- **Policies** in `app/policies/` handle authorization. Done with Pundit ge
+- **Policies** in `app/policies/` handle authorization. Done with Pundit. Everything must be policy scoped or authorized before presenting to the user. Only landing page and other misc pages doesn't require authorization.
 
 ### Key frontend notes
 
@@ -48,10 +49,17 @@ bin/erb_lint --lint-all  # ERB template linting
 
 - **User** rails generated user model.
 - **Expense** which records a single instance of expense.
-- **Subscriptions** recurring payments that the user sets
-
+- **Subscription** recurring payments that the user sets.
+- **Category** category of expense, such as food, entertainment, etc. It has slugs.
 
 ### Documentations
 
 - For DaisyUI compoenents, checkout `@fetch https://daisyui.com/llms.txt`
 - For Icons, use https://heroicons.com/outline
+
+### Localization
+
+- This app is internationalized. First into Japanese and English
+- Default locale is English
+- Localization files are in config/locales.
+- Every aspect of app should be localized

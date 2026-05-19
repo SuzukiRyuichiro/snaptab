@@ -1,0 +1,13 @@
+jp:
+  categories:
+    food: "食費"
+    transportation: "交通費"
+    health_and_fitness: "健康・フィットネス"
+    clothes_and_beauty: "衣類・美容"
+    rent_and_other_utilities: "家賃・その他光熱費"
+    insurance: "保険"
+    education: "教育費"
+    appliances: "家電"
+    tax: "税金"
+    entertainment: "エンターテイメント"
+    misc: "その他"

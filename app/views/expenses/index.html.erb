@@ -1,4 +1,4 @@
 <div class="w-full">
-  <%= pie_chart @expenses.joins(:category).group("categories.name").sum(:amount),
+  <%= pie_chart @expenses.joins(:category).group("categories.slug").sum(:amount),
   prefix: "¥" %>
 </div>
