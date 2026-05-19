@@ -1,0 +1,17 @@
+<div class="dock dock-md">
+  <%= link_to new_expense_path, class: request.path == new_expense_path ? 'dock-active' : '' do %>
+    <%= icon "pencil_square" %>
+    <span class="dock-label"><%= t("components.shared.dock.add") %></span>
+  <% end %>
+
+  <%= link_to expenses_path, class: request.path == expenses_path ? 'dock-active' : '' do %>
+    <%= icon "chart_pie" %>
+    <span class="dock-label"><%= t("components.shared.dock.summary") %></span>
+  <% end %>
+  <!-- TODO: repace this with actual settings including subscription management
+  -->
+  <%= link_to root_path, class: request.path == root_path ? 'dock-active' : '' do %>
+    <%= icon "cog_8_tooth" %>
+    <span class="dock-label"><%= t("components.shared.dock.settings") %></span>
+  <% end %>
+</div>

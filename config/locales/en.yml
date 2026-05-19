@@ -1,4 +1,10 @@
 en:
+  components:
+    shared:
+      dock:
+        add: "Add"
+        summary: "Summary"
+        settings: "Settings"
   categories:
     food: "Food"
     transportation: "Transportation"
@@ -11,3 +17,9 @@ en:
     tax: "Tax"
     entertainment: "Entertainment"
     misc: "Misc"
+  expenses:
+    new:
+      title: "Snaptab"
+      description: "Expense tracker for lazy people"
+      scan_receipt: "Scan receipt"
+      voice_input: "Voice Input"
