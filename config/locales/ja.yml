@@ -1,4 +1,10 @@
-jp:
+ja:
+  components:
+    shared:
+      dock:
+        add: "追加"
+        summary: "統計"
+        settings: "設定"
   categories:
     food: "食費"
     transportation: "交通費"
@@ -11,3 +17,9 @@ jp:
     tax: "税金"
     entertainment: "エンターテイメント"
     misc: "その他"
+  expenses:
+    new:
+      title: "Snaptab"
+      description: "手軽に支出をトラッキング"
+      scan_receipt: "レシートをスキャン"
+      voice_input: "音声入力"

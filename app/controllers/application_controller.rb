@@ -24,6 +24,14 @@ class ApplicationController < ActionController::Base
     Current.user
   end
 
+  # i18n
+  around_action :switch_locale
+
+  def switch_locale(&action)
+    locale = extract_locale_from_accept_language_header
+    I18n.with_locale(locale, &action)
+  end
+
   private
 
   def user_not_authorized
@@ -32,6 +40,21 @@ class ApplicationController < ActionController::Base
   end
 
   def skip_pundit?
-    controller_name == "pages" || controller_name == "sessions"
+    controller_name == "pages" || controller_name == "sessions" || controller_name == "passwords"
+  end
+
+  def extract_locale_from_accept_language_header
+    return Current.user.locale if authenticated? && Current.user.locale.present?
+
+    if request.env["HTTP_ACCEPT_LANGUAGE"].present?
+      request_locale = request.env["HTTP_ACCEPT_LANGUAGE"].scan(/^[a-z]{2}/).first.to_sym
+      return request_locale if I18n.available_locales.include?(request_locale)
+    end
+
+    I18n.default_locale
+  end
+
+  def set_no_dock
+    @no_dock = true
   end
 end
