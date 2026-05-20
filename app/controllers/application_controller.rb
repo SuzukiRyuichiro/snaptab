@@ -44,10 +44,14 @@ class ApplicationController < ActionController::Base
   end
 
   def extract_locale_from_accept_language_header
-    return I18n.default_locale unless request.env['HTTP_ACCEPT_LANGUAGE']
+    return Current.user.locale if authenticated? && Current.user.locale.present?
 
-    request_locale = request.env["HTTP_ACCEPT_LANGUAGE"].scan(/^[a-z]{2}/).first.to_sym
-    I18n.available_locales.include?(request_locale) ? request_locale : I18n.default_locale
+    if request.env["HTTP_ACCEPT_LANGUAGE"].present?
+      request_locale = request.env["HTTP_ACCEPT_LANGUAGE"].scan(/^[a-z]{2}/).first.to_sym
+      return request_locale if I18n.available_locales.include?(request_locale)
+    end
+
+    I18n.default_locale
   end
 
   def set_no_dock
