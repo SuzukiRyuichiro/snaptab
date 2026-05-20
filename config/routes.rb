@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resource :sign_up
   root to: "pages#home"
 
+  get "settings", to: "pages#settings", as: :settings
+
   resources :expenses, only: %i[new index]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

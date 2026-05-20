@@ -10,7 +10,7 @@
   <% end %>
   <!-- TODO: repace this with actual settings including subscription management
   -->
-  <%= link_to root_path, class: request.path == root_path ? 'dock-active' : '' do %>
+  <%= link_to settings_path, class: request.path == settings_path ? 'dock-active' : '' do %>
     <%= icon "cog_8_tooth" %>
     <span class="dock-label"><%= t("components.shared.dock.settings") %></span>
   <% end %>

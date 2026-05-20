@@ -49,4 +49,8 @@ class ApplicationController < ActionController::Base
     request_locale = request.env["HTTP_ACCEPT_LANGUAGE"].scan(/^[a-z]{2}/).first.to_sym
     I18n.available_locales.include?(request_locale) ? request_locale : I18n.default_locale
   end
+
+  def set_no_dock
+    @no_dock = true
+  end
 end
