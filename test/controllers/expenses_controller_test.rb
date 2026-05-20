@@ -17,12 +17,12 @@ class ExpensesControllerTest < ActionDispatch::IntegrationTest
 
   test "CTAs are present" do
     get new_expense_url
-    assert_select 'a.btn', text: "Scan receipt"
-    assert_select 'button.btn', text: /Voice Input/
+    assert_select "a.btn", text: "Scan receipt"
+    assert_select "button.btn", text: /Voice Input/
   end
 
   test "CTAs are present in Japanese" do
-    get new_expense_url, headers: { "HTTP_ACCEPT_LANGUAGE" => 'ja-JP' }
+    get new_expense_url, headers: { "HTTP_ACCEPT_LANGUAGE" => "ja-JP" }
     assert_select "a.btn", text: "レシートをスキャン"
     assert_select "button.btn", text: /音声入力/
   end

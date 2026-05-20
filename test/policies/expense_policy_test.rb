@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class ExpensePolicyTest < ActiveSupport::TestCase
   def test_scope
@@ -9,11 +9,11 @@ class ExpensePolicyTest < ActiveSupport::TestCase
 
     # Scope for user1 should only return user1's expenses
     scope = ExpensePolicy::Scope.new(user1, Expense.all)
-    assert_equal [expense1], scope.resolve.to_a
+    assert_equal [ expense1 ], scope.resolve.to_a
 
     # Scope for user2 should only return user2's expenses
     scope = ExpensePolicy::Scope.new(user2, Expense.all)
-    assert_equal [expense2], scope.resolve.to_a
+    assert_equal [ expense2 ], scope.resolve.to_a
   end
 
   def test_new

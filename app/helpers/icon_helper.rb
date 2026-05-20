@@ -10,7 +10,7 @@ module IconHelper
   # Usage:
   #   <%= icon 'camera' %>
   #   <%= icon 'microphone', color: '#f00', stroke_width: 2, size: 8 %>
-  def icon(name, color: 'currentColor', stroke_width: 1.5, size: 6)
+  def icon(name, color: "currentColor", stroke_width: 1.5, size: 6)
     render partial: "components/icons/#{name}", locals: {
       color: color,
       stroke_width: stroke_width,
