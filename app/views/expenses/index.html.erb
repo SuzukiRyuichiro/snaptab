@@ -1,9 +1,14 @@
-<div class="flex flex-col w-full gap-4 pb-20">
+<div class="flex flex-col w-full gap-4 pb-20 pt-4">
 
   <div class="card bg-base-100 w-full shadow-sm">
     <div class="card-body">
+      <h2 class="card-title">
+        Category Breakdown
+      </h2>
       <div class="w-full">
-        <%= pie_chart @expenses.group("categories.slug").sum(:amount), prefix: "¥" %>
+        <%= pie_chart @expenses.group("categories.slug").sum(:amount),
+        prefix: "¥",
+        legend: "bottom" %>
       </div>
     </div>
   </div>
