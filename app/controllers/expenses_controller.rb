@@ -1,6 +1,6 @@
 class ExpensesController < ApplicationController
   def index
-    @expenses = policy_scope(Expense)
+    @expenses = policy_scope(Expense).joins(:category)
   end
 
   def new
