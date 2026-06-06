@@ -6,11 +6,45 @@
         Category Breakdown
       </h2>
       <div class="w-full">
-        <%= pie_chart @expenses.group("categories.slug").sum(:amount),
+        <%= pie_chart @expenses
+          .joins(:category)
+          .group("categories.display_name")
+          .sum(:amount),
         prefix: "¥",
-        legend: "bottom" %>
+        colors: [
+          "#60A5FA", # blue-400
+          "#F87171", # red-400
+          "#FBBF24", # amber-400
+          "#34D399", # emerald-400
+          "#A78BFA", # violet-400
+          "#F472B6", # pink-400
+          "#38BDF8", # sky-400
+          "#FB923C", # orange-400
+          "#9CA3AF", # gray-400
+        ],
+        legend: false %>
+
+        <div class="overflow-x-auto mt-4 text-xs">
+          <table class="table w-full">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th class="text-right">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @expenses.joins(:category).group('categories.slug').sum(:amount).each do |category, amount| %>
+                <tr>
+                  <td class="flex items-center gap-2"><%= icon category, size: 4 %><%= category.titleize %></td>
+                  <td class="text-right"><%= number_to_currency(amount, unit: "¥") %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
+
   </div>
 
   <%= render "table", expenses: @expenses || [] %>
