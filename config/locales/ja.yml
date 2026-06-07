@@ -1,4 +1,8 @@
 ja:
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      short: "%m月%d日"
   components:
     shared:
       dock:

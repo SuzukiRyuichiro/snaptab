@@ -6,8 +6,6 @@
         <h2 class="card-title">
           Category Breakdown
         </h2>
-        <!-- TODO: make the content of the button synamic to the selected
-        month.-->
         <div class="dropdown dropdown-end">
           <div tabindex="0" role="button" class="btn m-1"><%= params[:month] %></div>
           <ul
@@ -16,9 +14,6 @@
               dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm
             "
           >
-            <!-- TODO: make the options only relevant month for the user. -->
-            <!--TOOD: each option would be a linkto the same page but with the
-            query param changed -->
             <% @months.each do |month| %>
               <li><%= link_to month, expenses_path(month: month) %></li>
             <% end %>
@@ -26,14 +21,14 @@
         </div>
       </div>
       <div class="w-full">
-        <%= pie_chart @category_breakdown, prefix: "¥", legend: false %>
+        <%= render "pie_chart", category_breakdown: @category_breakdown %>
 
         <div class="overflow-x-auto mt-4 text-xs">
           <table class="table w-full">
             <thead>
               <tr>
                 <th><%= t("categories.category") %></th>
-                <th class="text-right"><%= t("expenses.index.subtotal") %></th>
+                <th class="text-right"><%= t("expenses.index.total") %></th>
               </tr>
             </thead>
             <tbody>

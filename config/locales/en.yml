@@ -1,4 +1,8 @@
 en:
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      short: "%m/%d"
   components:
     shared:
       dock:
