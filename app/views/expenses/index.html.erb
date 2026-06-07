@@ -2,27 +2,30 @@
 
   <div class="card bg-base-100 w-full shadow-sm">
     <div class="card-body">
-      <h2 class="card-title">
-        Category Breakdown
-      </h2>
+      <div class=" flex justify-between">
+        <h2 class="card-title">
+          Category Breakdown
+        </h2>
+        <!-- TODO: make the content of the button synamic to the selected
+        month.-->
+        <div class="dropdown dropdown-end">
+          <div tabindex="0" role="button" class="btn m-1">2026-June</div>
+          <ul
+            tabindex="-1"
+            class="
+              dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm
+            "
+          >
+            <!-- TODO: make the options only relevant month for the user. -->
+            <!--TOOD: each option would be a linkto the same page but with the
+            query param changed -->
+            <li><a>Item 1</a></li>
+            <li><a>Item 2</a></li>
+          </ul>
+        </div>
+      </div>
       <div class="w-full">
-        <%= pie_chart @expenses
-          .joins(:category)
-          .group("categories.display_name")
-          .sum(:amount),
-        prefix: "¥",
-        colors: [
-          "#60A5FA", # blue-400
-          "#F87171", # red-400
-          "#FBBF24", # amber-400
-          "#34D399", # emerald-400
-          "#A78BFA", # violet-400
-          "#F472B6", # pink-400
-          "#38BDF8", # sky-400
-          "#FB923C", # orange-400
-          "#9CA3AF", # gray-400
-        ],
-        legend: false %>
+        <%= pie_chart @category_breakdown, prefix: "¥", legend: false %>
 
         <div class="overflow-x-auto mt-4 text-xs">
           <table class="table w-full">
@@ -33,7 +36,7 @@
               </tr>
             </thead>
             <tbody>
-              <% @expenses.joins(:category).group('categories.slug').sum(:amount).each do |category, amount| %>
+              <% @category_breakdown.each do |category, amount| %>
                 <tr>
                   <td class="flex items-center gap-2"><%= icon category, size: 4 %><%= category.titleize %></td>
                   <td class="text-right"><%= number_to_currency(amount, unit: "¥") %></td>
