@@ -6,6 +6,7 @@ en:
         summary: "Summary"
         settings: "Settings"
   categories:
+    category: "Category"
     food: "Food"
     transportation: "Transportation"
     health_and_fitness: "Health & Fitness"
@@ -23,3 +24,6 @@ en:
       description: "Expense tracker for lazy people"
       scan_receipt: "Scan receipt"
       voice_input: "Voice Input"
+    index:
+      total: "Total"
+      subtotal: "Subtotal"

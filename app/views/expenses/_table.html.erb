@@ -2,24 +2,23 @@
   class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100"
 >
   <table class="table">
-    <!-- head -->
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Amount</th>
-        <th>Category</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% expenses.each do |expense| %>
-        <tr>
-          <td><%= expense.spent_at %></td>
-          <td class="whitespace-nowrap overflow-ellipsis min-w-16"><%= expense.description %></td>
-          <td><%= expense.currency %><%= expense.amount %></td>
-          <td class="flex gap-1 items-center text-primary/60 whitespace-nowrap"><%= render "category_icon", category: expense.category %><%= expense.category.display_name %></td>
+    <% expenses_grouped_by_date.each do |date, expenses| %>
+      <thead>
+        <tr class="bg-base-200">
+          <th><%= date %></th>
+          <th></th>
+          <th></th>
         </tr>
-      <% end %>
-    </tbody>
+      </thead>
+      <tbody>
+        <% expenses.each do |expense| %>
+          <tr>
+            <td class="whitespace-nowrap overflow-ellipsis min-w-16"><%= expense.description %></td>
+            <td class="flex gap-1 items-center text-primary/60 whitespace-nowrap"><%= render "category_icon", category: expense.category %><%= t("categories.#{expense.category.slug}") %></td>
+            <td class="text-right"><%= number_to_currency(expense.amount, unit: "¥", precision: 0) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    <% end %>
   </table>
 </div>

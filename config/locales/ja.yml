@@ -6,6 +6,7 @@ ja:
         summary: "統計"
         settings: "設定"
   categories:
+    category: "分類"
     food: "食費"
     transportation: "交通費"
     health_and_fitness: "健康・フィットネス"
@@ -23,3 +24,7 @@ ja:
       description: "手軽に支出をトラッキング"
       scan_receipt: "レシートをスキャン"
       voice_input: "音声入力"
+    index:
+      total: "合計"
+      subtotal: "小計"
+      date: ""

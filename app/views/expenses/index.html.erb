@@ -32,15 +32,15 @@
           <table class="table w-full">
             <thead>
               <tr>
-                <th>Category</th>
-                <th class="text-right">Amount</th>
+                <th><%= t("categories.category") %></th>
+                <th class="text-right"><%= t("expenses.index.subtotal") %></th>
               </tr>
             </thead>
             <tbody>
-              <% @category_breakdown.each do |category, amount| %>
+              <% @category_breakdown.each do |category_slug, amount| %>
                 <tr>
-                  <td class="flex items-center gap-2"><%= icon category, size: 4 %><%= category.titleize %></td>
-                  <td class="text-right"><%= number_to_currency(amount, unit: "¥") %></td>
+                  <td class="flex items-center gap-2"><%= icon category_slug, size: 4 %><%= t("categories.#{category_slug}") %></td>
+                  <td class="text-right"><%= number_to_currency(amount, unit: "¥", precision: 0) %></td>
                 </tr>
               <% end %>
             </tbody>
@@ -51,6 +51,6 @@
 
   </div>
 
-  <%= render "table", expenses: @expenses || [] %>
+  <%= render "table", expenses_grouped_by_date: @expenses_grouped_by_date || [] %>
 
 </div>
