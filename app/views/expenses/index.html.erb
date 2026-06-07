@@ -9,7 +9,7 @@
         <!-- TODO: make the content of the button synamic to the selected
         month.-->
         <div class="dropdown dropdown-end">
-          <div tabindex="0" role="button" class="btn m-1">2026-June</div>
+          <div tabindex="0" role="button" class="btn m-1"><%= params[:month] %></div>
           <ul
             tabindex="-1"
             class="
@@ -19,8 +19,9 @@
             <!-- TODO: make the options only relevant month for the user. -->
             <!--TOOD: each option would be a linkto the same page but with the
             query param changed -->
-            <li><a>Item 1</a></li>
-            <li><a>Item 2</a></li>
+            <% @months.each do |month| %>
+              <li><%= link_to month, expenses_path(month: month) %></li>
+            <% end %>
           </ul>
         </div>
       </div>

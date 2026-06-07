@@ -1,15 +1,32 @@
 class ExpensesController < ApplicationController
   def index
-    from = Date.strptime(params[:month], "%Y-%m")
+    if params[:month].blank? || (params[:month] =~ /\A\d{4}-\d{2}\z/).nil?
+      skip_policy_scope
+      redirect_to expenses_path(month: Date.current.strftime("%Y-%m")) and return
+    end
+
+    from = if params[:month].present?
+             begin
+               Date.strptime(params[:month], "%Y-%m")
+             rescue ArgumentError
+               Date.current.beginning_of_month
+             end
+           else
+             Date.current.beginning_of_month
+           end
     to = from.end_of_month
+
     expense_and_category = policy_scope(Expense).joins(:category).where("spent_at between ? and ?", from, to)
     @expenses = expense_and_category.order(spent_at: :desc)
-    @category_breakdown = expense_and_category.group("categories.display_name, categories.slug").sum(:amount)
-    # Scope only the selected month
-    # query params would have the selected month params[:month]=2026-06
-    # if not, or the format is not good, use the current date, force it
-    #
-    # Group possible months
+    @category_breakdown = expense_and_category.group("categories.display_name, categories.slug").sum(:amount).sort_by { |k, v| -v }.to_h
+
+    # For the dropdown
+    @months = policy_scope(Expense)
+               .where.not(spent_at: nil)
+               .order(spent_at: :desc)
+               .pluck(:spent_at)
+               .map { |date| date.strftime('%Y-%m') }
+               .uniq
   end
 
   def new
