@@ -1,1 +1,4 @@
-<%= pie_chart category_breakdown, prefix: "¥", legend: false %>
+<canvas
+  data-controller="breakdown-pie-chart"
+  data-breakdown-pie-chart-breakdown-value="<%= category_breakdown.to_json %>"
+></canvas>
