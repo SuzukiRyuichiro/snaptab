@@ -17,8 +17,10 @@ class ExpensesController < ApplicationController
     to = from.end_of_month
 
     expense_and_category = policy_scope(Expense).joins(:category).where("spent_at between ? and ?", from, to)
+    @total_expense = expense_and_category.pluck(:amount).sum
     @expenses_grouped_by_date = expense_and_category.order(spent_at: :desc).group_by(&:spent_at)
     @category_breakdown = expense_and_category.group("categories.slug").sum(:amount).sort_by { |k, v| -v }.to_h
+    @localized_category_breakdown = @category_breakdown.transform_keys { |slug| I18n.t("categories.#{slug}") }
 
     # For the dropdown
     @months = policy_scope(Expense)

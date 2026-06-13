@@ -1,11 +1,23 @@
 {
   "version": 1,
   "skills": {
+    "chartjs": {
+      "source": "openlark/skills",
+      "sourceType": "github",
+      "skillPath": "skills/chartjs/SKILL.md",
+      "computedHash": "9589a9e562287ce6262b0b7082ed0a04b206f5d49a8278ca30e45eb791418325"
+    },
     "daisyui": {
       "source": "saadeghi/daisyui",
       "sourceType": "github",
       "skillPath": "skills/daisyui/SKILL.md",
       "computedHash": "5f63c0f20f3e6cb7d804e168122c3b047cb65c9db6a31534661dafc9b9bd6764"
+    },
+    "stimulus": {
+      "source": "sandnap/easy_notes",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/stimulus/SKILL.md",
+      "computedHash": "185d9637476f3791db822ae0676f59195fa58d43b3fb79b47004e4d7a9f8f459"
     }
   }
 }

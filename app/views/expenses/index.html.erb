@@ -1,27 +1,30 @@
 <div class="flex flex-col w-full gap-4 pb-20 pt-4">
+  <div class="dropdown dropdown-start">
+    <div tabindex="0" role="button" class="btn m-1"><%= params[:month] %></div>
+    <ul
+      tabindex="-1"
+      class="
+        dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm
+      "
+    >
+      <% @months.each do |month| %>
+        <li><%= link_to month, expenses_path(month: month) %></li>
+      <% end %>
+    </ul>
+  </div>
 
   <div class="card bg-base-100 w-full shadow-sm">
     <div class="card-body">
-      <div class=" flex justify-between">
-        <h2 class="card-title">
-          Category Breakdown
-        </h2>
-        <div class="dropdown dropdown-end">
-          <div tabindex="0" role="button" class="btn m-1"><%= params[:month] %></div>
-          <ul
-            tabindex="-1"
-            class="
-              dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm
-            "
-          >
-            <% @months.each do |month| %>
-              <li><%= link_to month, expenses_path(month: month) %></li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
+
+      <h2 class="card-title">
+        <%= t("expenses.index.expense") %>
+      </h2>
+
+      <h3>
+        <%= t("expenses.index.total") %><%= number_to_currency(@total_expense, unit: "¥", precision: 0) %>
+      </h3>
       <div class="w-full">
-        <%= render "pie_chart", category_breakdown: @category_breakdown %>
+        <%= render "pie_chart", category_breakdown: @localized_category_breakdown %>
 
         <div class="overflow-x-auto mt-4 text-xs">
           <table class="table w-full">
