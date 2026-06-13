@@ -5,15 +5,16 @@ class ExpensesController < ApplicationController
       redirect_to expenses_path(month: Date.current.strftime("%Y-%m")) and return
     end
 
-    from = if params[:month].present?
-             begin
-               Date.strptime(params[:month], "%Y-%m")
-             rescue ArgumentError
-               Date.current.beginning_of_month
-             end
-           else
-             Date.current.beginning_of_month
-           end
+    from =
+      if params[:month].present?
+        begin
+          Date.strptime(params[:month], "%Y-%m")
+        rescue ArgumentError
+          Date.current.beginning_of_month
+        end
+      else
+        Date.current.beginning_of_month
+      end
     to = from.end_of_month
 
     expense_and_category = policy_scope(Expense).joins(:category).where("spent_at between ? and ?", from, to)
