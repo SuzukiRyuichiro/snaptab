@@ -11,7 +11,13 @@
       "source": "saadeghi/daisyui",
       "sourceType": "github",
       "skillPath": "skills/daisyui/SKILL.md",
-      "computedHash": "5f63c0f20f3e6cb7d804e168122c3b047cb65c9db6a31534661dafc9b9bd6764"
+      "computedHash": "a98221a5c8f50bfb0dbaf4d0e52982598981bc5e472806814e118ee7df2a9712"
+    },
+    "minitest": {
+      "source": "bastos/ruby-plugin-marketplace",
+      "sourceType": "github",
+      "skillPath": "plugins/ruby-on-rails/skills/minitest/SKILL.md",
+      "computedHash": "8646c582e83ccd7d84a142204cfd314cb09c241cd3dd56e5d791b150a86cd31f"
     },
     "stimulus": {
       "source": "sandnap/easy_notes",
