@@ -28,7 +28,7 @@ class ExpensesController < ApplicationController
                .where.not(spent_at: nil)
                .order(spent_at: :desc)
                .pluck(:spent_at)
-               .map { |date| date.strftime('%Y-%m') }
+               .map { |date| date.strftime("%Y-%m") }
                .uniq
   end
 
