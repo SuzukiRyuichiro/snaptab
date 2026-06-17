@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "chartjs": {
+      "source": "openlark/skills",
+      "sourceType": "github",
+      "skillPath": "skills/chartjs/SKILL.md",
+      "computedHash": "9589a9e562287ce6262b0b7082ed0a04b206f5d49a8278ca30e45eb791418325"
+    },
+    "daisyui": {
+      "source": "saadeghi/daisyui",
+      "sourceType": "github",
+      "skillPath": "skills/daisyui/SKILL.md",
+      "computedHash": "a98221a5c8f50bfb0dbaf4d0e52982598981bc5e472806814e118ee7df2a9712"
+    },
+    "minitest": {
+      "source": "bastos/ruby-plugin-marketplace",
+      "sourceType": "github",
+      "skillPath": "plugins/ruby-on-rails/skills/minitest/SKILL.md",
+      "computedHash": "8646c582e83ccd7d84a142204cfd314cb09c241cd3dd56e5d791b150a86cd31f"
+    },
+    "stimulus": {
+      "source": "sandnap/easy_notes",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/stimulus/SKILL.md",
+      "computedHash": "185d9637476f3791db822ae0676f59195fa58d43b3fb79b47004e4d7a9f8f459"
+    }
+  }
+}

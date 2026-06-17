@@ -1,4 +1,58 @@
-<div class="w-full">
-  <%= pie_chart @expenses.joins(:category).group("categories.slug").sum(:amount),
-  prefix: "¥" %>
+<div class="flex flex-col w-full gap-4 pb-20 pt-4">
+
+  <div class="card bg-base-100 w-full shadow-sm">
+    <div class="card-body">
+
+      <div class="flex justify-between items-start">
+        <div>
+          <h2 class="card-title">
+            <%= t("expenses.index.expense") %>
+          </h2>
+
+          <h3>
+            <%= t("expenses.index.total") %><%= number_to_currency(@total_expense, unit: "¥", precision: 0) %>
+          </h3>
+        </div>
+        <div class="dropdown dropdown-start">
+          <div tabindex="0" role="button" class="btn m-1"><%= params[:month] %></div>
+          <ul
+            tabindex="-1"
+            class="
+              dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm
+            "
+          >
+            <% @months.each do |month| %>
+              <li><%= link_to month, expenses_path(month: month) %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+      <div class="w-full">
+        <%= render "pie_chart", category_breakdown: @localized_category_breakdown %>
+
+        <div class="overflow-x-auto mt-4 text-xs">
+          <table class="table w-full">
+            <thead>
+              <tr>
+                <th><%= t("categories.category") %></th>
+                <th class="text-right"><%= t("expenses.index.total") %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @category_breakdown.each do |category_slug, amount| %>
+                <tr>
+                  <td class="flex items-center gap-2"><%= icon category_slug, size: 4 %><%= t("categories.#{category_slug}") %></td>
+                  <td class="text-right"><%= number_to_currency(amount, unit: "¥", precision: 0) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <%= render "table", expenses_grouped_by_date: @expenses_grouped_by_date || [] %>
+
 </div>

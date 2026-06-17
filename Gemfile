@@ -68,5 +68,3 @@ group :test do
 end
 
 gem "pundit", "~> 2.5"
-
-gem "chartkick", "~> 5.2"

@@ -43,6 +43,11 @@ bin/erb_lint --lint-all  # ERB template linting
 
 - It should strictly use DaisyUI components as much as possible for consistency
 - Should only use daisy-ui related CSS and tailwindcss classes. Custom style generation is not allowed unless told to.
+- When implementing a javascript related implementation, it should strictly use stimulus-js. 
+
+### View conventions
+
+- Partials receive their data via local variables, not instance variables. The view that renders the partial is responsible for passing values through (e.g. `render "pie_chart", category_breakdown: @localized_category_breakdown`). Partials must not reference `@`-prefixed instance variables directly.
 
 
 ### Core Domain Models
@@ -55,7 +60,7 @@ bin/erb_lint --lint-all  # ERB template linting
 ### Documentations
 
 - For DaisyUI compoenents, checkout `@fetch https://daisyui.com/llms.txt`
-- For Icons, use https://heroicons.com/outline
+- For Icons, use `https://heroicons.com/outline`
 
 ### Localization
 
