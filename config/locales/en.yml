@@ -48,3 +48,18 @@ en:
       total: "Total"
       subtotal: "Subtotal"
       expense: "Expenses"
+  voice_memos:
+    record:
+      title: "Voice Input"
+      hint: "Tap record and say something like \"2000 yen for lunch\"."
+      start: "Start recording"
+      stop: "Stop & save"
+      recording: "Recording… tap to stop"
+      denied: "Microphone access was denied."
+      close: "Close"
+    create:
+      processing: "Got it! We're adding your expense."
+      error: "Something went wrong. Please try recording again."
+    status:
+      processing: "Transcribing your expense…"
+      failed: "We couldn't understand that recording. Please try again."

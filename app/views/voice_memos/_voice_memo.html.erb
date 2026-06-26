@@ -1,0 +1,11 @@
+<% if voice_memo.failed? %>
+  <div role="alert" class="alert alert-error">
+    <%= icon "microphone", size: 5 %>
+    <span><%= t("voice_memos.status.failed") %></span>
+  </div>
+<% else %>
+  <div role="alert" class="alert">
+    <span class="loading loading-spinner loading-sm"></span>
+    <span><%= t("voice_memos.status.processing") %></span>
+  </div>
+<% end %>

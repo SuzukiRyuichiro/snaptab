@@ -49,3 +49,18 @@ ja:
       subtotal: "小計"
       date: ""
       expense: "支出"
+  voice_memos:
+    record:
+      title: "音声入力"
+      hint: "録音をタップして「ランチに2000円」のように話してください。"
+      start: "録音を開始"
+      stop: "停止して保存"
+      recording: "録音中… タップで停止"
+      denied: "マイクへのアクセスが拒否されました。"
+      close: "閉じる"
+    create:
+      processing: "受け付けました！支出を追加しています。"
+      error: "問題が発生しました。もう一度録音してください。"
+    status:
+      processing: "支出を文字起こししています…"
+      failed: "録音を認識できませんでした。もう一度お試しください。"

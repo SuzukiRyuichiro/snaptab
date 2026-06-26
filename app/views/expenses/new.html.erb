@@ -26,14 +26,34 @@
         <span class="text-xl font-semibold"><%= t('expenses.new.voice_input') %></span>
       </button>
     </div>
-    <!-- Voice input modal placeholder -->
+    <!-- Voice input modal -->
     <dialog id="voiceInputModal" class="modal">
-      <div class="modal-box">
-        <h3 class="text-lg font-bold">Hello!</h3>
-        <p class="py-4">Press ESC key or click the button below to close</p>
+      <div
+        class="modal-box"
+        data-controller="audio-recorder"
+        data-audio-recorder-start-label-value="<%= t('voice_memos.record.start') %>"
+        data-audio-recorder-stop-label-value="<%= t('voice_memos.record.stop') %>"
+        data-audio-recorder-recording-label-value="<%= t('voice_memos.record.recording') %>"
+        data-audio-recorder-denied-label-value="<%= t('voice_memos.record.denied') %>"
+      >
+        <h3 class="text-lg font-bold"><%= t('voice_memos.record.title') %></h3>
+        <p class="py-2 text-base-content/60"><%= t('voice_memos.record.hint') %></p>
+
+        <%= form_with url: voice_memos_path, method: :post, multipart: true, data: { audio_recorder_target: "form" } do %>
+          <%= file_field_tag :audio, accept: "audio/*", class: "hidden", data: { audio_recorder_target: "input" } %>
+        <% end %>
+
+        <button
+          type="button"
+          class="btn btn-primary btn-block mt-2"
+          data-action="audio-recorder#toggle"
+          data-audio-recorder-target="button"
+        ><%= t('voice_memos.record.start') %></button>
+        <p class="text-sm text-base-content/60 mt-2" data-audio-recorder-target="status"></p>
+
         <div class="modal-action">
           <form method="dialog">
-            <button class="btn">Close</button>
+            <button class="btn"><%= t('voice_memos.record.close') %></button>
           </form>
         </div>
       </div>

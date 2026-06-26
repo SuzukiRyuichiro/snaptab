@@ -1,8 +1,11 @@
 Expense.destroy_all
 User.destroy_all
+
+# Ensure the canonical categories exist (idempotent).
+Category::SLUGS.each { |slug| Category.find_or_create_by!(slug: slug) }
+
 user = User.create!(email_address: 'mail@mail.com', password: '123123')
 
-# Create categories for the user
 # Create about 40 dummy expenses
 
 puts 'Creating dummy expenses...'
