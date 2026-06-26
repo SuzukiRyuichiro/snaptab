@@ -50,13 +50,9 @@ en:
       expense: "Expenses"
   voice_memos:
     record:
-      title: "Voice Input"
-      hint: "Tap record and say something like \"2000 yen for lunch\"."
-      start: "Start recording"
-      stop: "Stop & save"
-      recording: "Recording… tap to stop"
+      hold: "Hold and say \"2000 yen for lunch\""
+      recording: "Recording… release to save"
       denied: "Microphone access was denied."
-      close: "Close"
     create:
       processing: "Got it! We're adding your expense."
       error: "Something went wrong. Please try recording again."

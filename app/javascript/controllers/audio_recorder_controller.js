@@ -2,67 +2,91 @@ import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="audio-recorder"
 //
-// Records microphone audio with MediaRecorder, drops the recording into a hidden
-// file input, and submits the surrounding Turbo form. Turbo handles CSRF + the
-// redirect, so there is no manual fetch here.
+// Push-to-talk: hold the button to record, release to stop and submit. Recording
+// is dropped into a hidden file input and the surrounding Turbo form is submitted,
+// so Turbo handles CSRF + the redirect (no manual fetch here).
 export default class extends Controller {
   static targets = ["button", "status", "input", "form"];
   static values = {
-    startLabel: String,
-    stopLabel: String,
+    holdLabel: String,
     recordingLabel: String,
     deniedLabel: String,
   };
 
   connect() {
-    this.recording = false;
+    this.state = "idle"; // idle | acquiring | recording
     this.chunks = [];
-    this.setButtonLabel(this.startLabelValue);
+    this.setStatus(this.holdLabelValue);
   }
 
   disconnect() {
     this.releaseStream();
   }
 
-  toggle() {
-    if (this.recording) {
-      this.stop();
-    } else {
-      this.start();
-    }
-  }
+  // pointerdown
+  async start(event) {
+    event.preventDefault();
+    if (this.state !== "idle") return;
 
-  async start() {
+    this.state = "acquiring";
+    this.setRecordingUI(true);
+    this.setStatus(this.recordingLabelValue);
+
+    let stream;
     try {
-      this.stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     } catch (error) {
+      this.reset();
       this.setStatus(this.deniedLabelValue);
       return;
     }
 
+    // The button was released before the mic became available — discard.
+    if (this.state !== "acquiring") {
+      stream.getTracks().forEach((track) => track.stop());
+      return;
+    }
+
+    this.stream = stream;
     this.chunks = [];
-    this.recorder = new MediaRecorder(this.stream);
+    this.recorder = new MediaRecorder(stream);
     this.recorder.addEventListener("dataavailable", (event) => {
       if (event.data.size > 0) this.chunks.push(event.data);
     });
     this.recorder.addEventListener("stop", () => this.submitRecording());
     this.recorder.start();
-
-    this.recording = true;
-    this.setButtonLabel(this.stopLabelValue);
-    this.setStatus(this.recordingLabelValue);
+    this.state = "recording";
   }
 
-  stop() {
-    if (!this.recorder) return;
-    this.recording = false;
-    this.recorder.stop();
+  // pointerup / pointerleave / pointercancel
+  stop(event) {
+    if (event) event.preventDefault();
+
+    if (this.state === "acquiring") {
+      // Mic not ready yet: cancel the pending start.
+      this.reset();
+      return;
+    }
+    if (this.state !== "recording") return;
+
+    this.state = "idle";
+    this.setRecordingUI(false);
+    this.setStatus(this.holdLabelValue);
+    this.recorder.stop(); // triggers submitRecording via the "stop" listener
     this.releaseStream();
   }
 
+  prevent(event) {
+    event.preventDefault();
+  }
+
   submitRecording() {
+    if (this.chunks.length === 0) return;
+
     const mimeType = this.recorder.mimeType || "audio/webm";
     const blob = new Blob(this.chunks, { type: mimeType });
+    if (blob.size === 0) return;
+
     const file = new File([blob], `recording.${this.extensionFor(mimeType)}`, {
       type: mimeType,
     });
@@ -81,13 +105,22 @@ export default class extends Controller {
     return "webm";
   }
 
+  reset() {
+    this.state = "idle";
+    this.setRecordingUI(false);
+    this.setStatus(this.holdLabelValue);
+    this.releaseStream();
+  }
+
   releaseStream() {
     this.stream?.getTracks().forEach((track) => track.stop());
     this.stream = null;
   }
 
-  setButtonLabel(label) {
-    if (this.hasButtonTarget) this.buttonTarget.textContent = label;
+  setRecordingUI(on) {
+    if (!this.hasButtonTarget) return;
+    this.buttonTarget.classList.toggle("btn-error", on);
+    this.buttonTarget.classList.toggle("animate-pulse", on);
   }
 
   setStatus(message) {

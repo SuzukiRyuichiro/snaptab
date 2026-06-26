@@ -13,50 +13,38 @@
         </div>
         <span class="text-xl font-semibold"><%= t('expenses.new.scan_receipt') %></span>
       <% end %>
-      <button
-        class="
-          w-full grid py-10 btn btn-block h-auto btn-outline border-primary/10
-          place-items-center
-        "
-        onclick="voiceInputModal.showModal()"
-      >
-        <div class=" bg-primary/10 w-20 h-20 grid place-items-center rounded-full ">
-          <%= icon "microphone", stroke_width: 2, size: 8 %>
-        </div>
-        <span class="text-xl font-semibold"><%= t('expenses.new.voice_input') %></span>
-      </button>
-    </div>
-    <!-- Voice input modal -->
-    <dialog id="voiceInputModal" class="modal">
       <div
-        class="modal-box"
         data-controller="audio-recorder"
-        data-audio-recorder-start-label-value="<%= t('voice_memos.record.start') %>"
-        data-audio-recorder-stop-label-value="<%= t('voice_memos.record.stop') %>"
+        data-audio-recorder-hold-label-value="<%= t('voice_memos.record.hold') %>"
         data-audio-recorder-recording-label-value="<%= t('voice_memos.record.recording') %>"
         data-audio-recorder-denied-label-value="<%= t('voice_memos.record.denied') %>"
       >
-        <h3 class="text-lg font-bold"><%= t('voice_memos.record.title') %></h3>
-        <p class="py-2 text-base-content/60"><%= t('voice_memos.record.hint') %></p>
-
         <%= form_with url: voice_memos_path, method: :post, multipart: true, data: { audio_recorder_target: "form" } do %>
           <%= file_field_tag :audio, accept: "audio/*", class: "hidden", data: { audio_recorder_target: "input" } %>
         <% end %>
 
         <button
           type="button"
-          class="btn btn-primary btn-block mt-2"
-          data-action="audio-recorder#toggle"
+          class="
+            w-full grid py-10 btn btn-block h-auto btn-outline border-primary/10
+            place-items-center select-none touch-none
+          "
           data-audio-recorder-target="button"
-        ><%= t('voice_memos.record.start') %></button>
-        <p class="text-sm text-base-content/60 mt-2" data-audio-recorder-target="status"></p>
-
-        <div class="modal-action">
-          <form method="dialog">
-            <button class="btn"><%= t('voice_memos.record.close') %></button>
-          </form>
-        </div>
+          data-action="
+            pointerdown->audio-recorder#start
+            pointerup->audio-recorder#stop
+            pointerleave->audio-recorder#stop
+            pointercancel->audio-recorder#stop
+            contextmenu->audio-recorder#prevent
+          "
+        >
+          <div class=" bg-primary/10 w-20 h-20 grid place-items-center rounded-full ">
+            <%= icon "microphone", stroke_width: 2, size: 8 %>
+          </div>
+          <span class="text-xl font-semibold"><%= t('expenses.new.voice_input') %></span>
+          <span class="text-sm font-normal text-base-content/60" data-audio-recorder-target="status"></span>
+        </button>
       </div>
-    </dialog>
+    </div>
   </div>
 </div>
