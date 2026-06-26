@@ -22,6 +22,22 @@ ja:
     tax: "税金"
     entertainment: "エンターテイメント"
     misc: "その他"
+  pages:
+    settings:
+      title: "設定"
+      save: "保存する"
+      saved: "設定を保存しました。"
+      currency:
+        label: "通貨"
+      locale:
+        label: "言語"
+      currencies:
+        JPY: "JPY — 日本円"
+        USD: "USD — 米ドル"
+      locales:
+        en: "English"
+        ja: "日本語"
+      logout: "ログアウト"
   expenses:
     new:
       title: "Snaptab"

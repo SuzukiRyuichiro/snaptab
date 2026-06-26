@@ -22,6 +22,22 @@ en:
     tax: "Tax"
     entertainment: "Entertainment"
     misc: "Misc"
+  pages:
+    settings:
+      title: "Settings"
+      save: "Save Changes"
+      saved: "Settings saved."
+      currency:
+        label: "Currency"
+      locale:
+        label: "Language"
+      currencies:
+        JPY: "JPY — Japanese Yen"
+        USD: "USD — US Dollar"
+      locales:
+        en: "English"
+        ja: "日本語"
+      logout: "Log out"
   expenses:
     new:
       title: "Snaptab"
