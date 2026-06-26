@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root to: "pages#home"
 
   get "settings", to: "pages#settings", as: :settings
+  resource :user, only: [:update]
 
   resources :expenses, only: %i[new index]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

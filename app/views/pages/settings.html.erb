@@ -1,1 +1,52 @@
-<%= link_to "Log out", session_path, data: { turbo_method: :delete }, class: 'btn btn-error' %>
+<div class="flex flex-col gap-6 pb-24 pt-4 w-full">
+  <h1 class="text-xl font-bold"><%= t("pages.settings.title") %></h1>
+
+  <% if notice = flash[:notice] %>
+    <div role="alert" class="alert alert-success alert-soft">
+      <span><%= notice %></span>
+    </div>
+  <% end %>
+
+  <%= form_with url: user_path, method: :patch, class: "flex flex-col gap-4" do |f| %>
+    <div class="card bg-base-100 shadow-sm">
+      <div class="card-body gap-4">
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend"><%= t("pages.settings.currency.label") %></legend>
+          <%= select_tag "user[currency]",
+          options_for_select(
+            [
+              [t("pages.settings.currencies.JPY"), "JPY"],
+              [t("pages.settings.currencies.USD"), "USD"],
+            ],
+            nil,
+          ),
+          class: "select w-full" %>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend"><%= t("pages.settings.locale.label") %></legend>
+          <%= select_tag "user[locale]",
+          options_for_select(
+            [
+              [t("pages.settings.locales.en"), "en"],
+              [t("pages.settings.locales.ja"), "ja"],
+            ],
+            Current.user.locale,
+          ),
+          class: "select w-full" %>
+        </fieldset>
+      </div>
+    </div>
+
+    <%= f.submit t("pages.settings.save"), class: "btn btn-primary btn-block" %>
+  <% end %>
+
+  <div class="divider my-0"></div>
+
+  <%= link_to t("pages.settings.logout"),
+  session_path,
+  data: {
+    turbo_method: :delete,
+  },
+  class: "btn btn-error btn-outline btn-block" %>
+</div>
