@@ -23,14 +23,16 @@ class VoiceMemoTest < ActiveSupport::TestCase
     assert memo.valid?
   end
 
-  test "in_progress_or_failed excludes completed memos" do
+  test "in_progress includes only pending and processing memos" do
     pending = @user.voice_memos.create!(status: :pending, audio: audio_blob)
+    processing = @user.voice_memos.create!(status: :processing, audio: audio_blob)
     failed = @user.voice_memos.create!(status: :failed, audio: audio_blob)
     completed = @user.voice_memos.create!(status: :completed, audio: audio_blob)
 
-    result = @user.voice_memos.in_progress_or_failed
+    result = @user.voice_memos.in_progress
     assert_includes result, pending
-    assert_includes result, failed
+    assert_includes result, processing
+    assert_not_includes result, failed
     assert_not_includes result, completed
   end
 

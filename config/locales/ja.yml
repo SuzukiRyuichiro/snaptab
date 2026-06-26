@@ -51,12 +51,14 @@ ja:
       expense: "支出"
   voice_memos:
     record:
-      hold: "長押しして「ランチに2000円」と話す"
-      recording: "録音中… 指を離すと保存"
+      hold: "長押しして話す"
+      recording: "録音中… 指を離して保存"
       denied: "マイクへのアクセスが拒否されました。"
     create:
       processing: "受け付けました！支出を追加しています。"
       error: "問題が発生しました。もう一度録音してください。"
     status:
       processing: "支出を文字起こししています…"
+      completed: "追加しました"
       failed: "録音を認識できませんでした。もう一度お試しください。"
+      dismiss: "閉じる"

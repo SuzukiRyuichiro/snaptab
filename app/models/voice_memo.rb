@@ -12,5 +12,15 @@ class VoiceMemo < ApplicationRecord
 
   validates :audio, presence: true
 
-  scope :in_progress_or_failed, -> { where(status: %i[pending processing failed]) }
+  # Only still-running memos are rendered on page load. Completed/failed states are
+  # delivered live via Turbo Streams and are transient (gone on the next reload).
+  scope :in_progress, -> { where(status: %i[pending processing]) }
+
+  after_update_commit :broadcast_status_change, if: :saved_change_to_status?
+
+  private
+
+  def broadcast_status_change
+    broadcast_replace_to(user, :voice_memos)
+  end
 end

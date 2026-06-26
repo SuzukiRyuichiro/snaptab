@@ -50,7 +50,7 @@ en:
       expense: "Expenses"
   voice_memos:
     record:
-      hold: "Hold and say \"2000 yen for lunch\""
+      hold: "Hold to speak"
       recording: "Recording… release to save"
       denied: "Microphone access was denied."
     create:
@@ -58,4 +58,6 @@ en:
       error: "Something went wrong. Please try recording again."
     status:
       processing: "Transcribing your expense…"
+      completed: "Added"
       failed: "We couldn't understand that recording. Please try again."
+      dismiss: "Dismiss"

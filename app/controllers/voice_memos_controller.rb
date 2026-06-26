@@ -6,7 +6,7 @@ class VoiceMemosController < ApplicationController
 
     if @voice_memo.save
       TranscribeVoiceMemoJob.perform_later(@voice_memo.id)
-      redirect_to expenses_path, notice: t("voice_memos.create.processing"), status: :see_other
+      redirect_to expenses_path, status: :see_other
     else
       redirect_to new_expense_path, alert: t("voice_memos.create.error"), status: :see_other
     end

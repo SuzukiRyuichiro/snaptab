@@ -23,7 +23,7 @@ class ExpensesController < ApplicationController
     @category_breakdown = expense_and_category.group("categories.slug").sum(:amount).sort_by { |k, v| -v }.to_h
     @localized_category_breakdown = @category_breakdown.transform_keys { |slug| I18n.t("categories.#{slug}") }
 
-    @voice_memos = policy_scope(VoiceMemo).in_progress_or_failed.order(created_at: :desc)
+    @voice_memos = policy_scope(VoiceMemo).in_progress.order(created_at: :desc)
 
     # For the dropdown
     @months = policy_scope(Expense)
