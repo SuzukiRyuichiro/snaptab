@@ -49,12 +49,18 @@ export default class extends Controller {
 
     this.stream = stream;
     this.chunks = [];
-    this.recorder = new MediaRecorder(stream);
-    this.recorder.addEventListener("dataavailable", (event) => {
-      if (event.data.size > 0) this.chunks.push(event.data);
-    });
-    this.recorder.addEventListener("stop", () => this.submitRecording());
-    this.recorder.start();
+    try {
+      this.recorder = new MediaRecorder(stream);
+      this.recorder.addEventListener("dataavailable", (event) => {
+        if (event.data.size > 0) this.chunks.push(event.data);
+      });
+      this.recorder.addEventListener("stop", () => this.submitRecording());
+      this.recorder.start();
+    } catch (error) {
+      this.reset();
+      this.setStatus(this.deniedLabelValue);
+      return;
+    }
     this.state = "recording";
   }
 
