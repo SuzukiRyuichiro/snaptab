@@ -1,0 +1,47 @@
+<div class="flex flex-col gap-6 pb-24 pt-4 w-full">
+  <h1 class="text-xl font-bold"><%= t("expenses.edit.title") %></h1>
+
+  <%= form_with model: @expense, url: expense_path(@expense), method: :patch, class: "flex flex-col gap-4" do |f| %>
+    <div class="card bg-base-100 shadow-sm">
+      <div class="card-body gap-4">
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend"><%= t("expenses.edit.amount") %></legend>
+          <%= f.number_field :amount, step: "0.01", min: 0, class: "input w-full" %>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend"><%= t("expenses.edit.description") %></legend>
+          <%= f.text_field :description, class: "input w-full" %>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend"><%= t("expenses.edit.category") %></legend>
+          <%= f.collection_select :category_id, @categories, :id,
+              ->(category) { t("categories.#{category.slug}") },
+              {}, class: "select w-full" %>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend"><%= t("expenses.edit.currency") %></legend>
+          <%= f.select :currency,
+              options_for_select(
+                [
+                  [t("pages.settings.currencies.JPY"), "JPY"],
+                  [t("pages.settings.currencies.USD"), "USD"]
+                ],
+                @expense.currency
+              ),
+              {}, class: "select w-full" %>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend"><%= t("expenses.edit.date") %></legend>
+          <%= f.date_field :spent_at, class: "input w-full" %>
+        </fieldset>
+      </div>
+    </div>
+
+    <%= f.submit t("expenses.edit.save"), class: "btn btn-primary btn-block" %>
+    <%= link_to t("expenses.edit.cancel"), expenses_path(month: @expense.spent_at&.strftime("%Y-%m")), class: "btn btn-ghost btn-block" %>
+  <% end %>
+</div>

@@ -49,6 +49,17 @@ ja:
       subtotal: "小計"
       date: ""
       expense: "支出"
+    edit:
+      title: "支出を編集"
+      amount: "金額"
+      description: "内容"
+      category: "カテゴリー"
+      currency: "通貨"
+      date: "日付"
+      save: "保存"
+      cancel: "キャンセル"
+    update:
+      success: "支出を更新しました。"
   voice_memos:
     record:
       hold: "長押しして話す"
@@ -62,3 +73,4 @@ ja:
       completed: "追加しました"
       failed: "録音を認識できませんでした。もう一度お試しください。"
       dismiss: "閉じる"
+      edit: "編集"

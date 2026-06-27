@@ -20,7 +20,7 @@ class AudioTranscriber
         tmp.rewind
 
         response = @client.audio.transcribe(
-          parameters: { model: MODEL, file: File.open(tmp.path, "rb") }
+          parameters: { model: MODEL, file: tmp, language: language }
         )
         response["text"].to_s.strip
       end
@@ -28,6 +28,11 @@ class AudioTranscriber
   end
 
   private
+
+  def language
+    locale = I18n.locale
+    I18n.available_locales.include?(locale) ? locale.to_s : I18n.default_locale.to_s
+  end
 
   def extension
     ext = @attachment.blob.filename.extension_with_delimiter

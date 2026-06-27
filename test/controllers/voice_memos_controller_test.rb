@@ -10,7 +10,7 @@ class VoiceMemosControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
-    assert_redirected_to expenses_path
+    assert_redirected_to new_expense_path
     assert VoiceMemo.last.audio.attached?
   end
 

@@ -6,12 +6,13 @@
       <button type="button" class="btn btn-ghost btn-xs btn-circle" data-action="dismiss#close" aria-label="<%= t("voice_memos.status.dismiss") %>">✕</button>
     </div>
   <% elsif voice_memo.completed? %>
-    <div role="alert" class="alert alert-success" data-controller="dismiss" data-dismiss-delay-value="6000">
+    <div role="alert" class="alert alert-success" data-controller="dismiss">
       <span>
         <%= t("voice_memos.status.completed") %>
         <%= number_to_currency(voice_memo.expense.amount, unit: "¥", precision: 0) %>
         · <%= t("categories.#{voice_memo.expense.category.slug}") %>
       </span>
+      <%= link_to t("voice_memos.status.edit"), edit_expense_path(voice_memo.expense), class: "btn btn-ghost btn-xs" %>
       <button type="button" class="btn btn-ghost btn-xs btn-circle" data-action="dismiss#close" aria-label="<%= t("voice_memos.status.dismiss") %>">✕</button>
     </div>
   <% else %>

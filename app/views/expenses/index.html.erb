@@ -1,10 +1,5 @@
 <div class="flex flex-col w-full gap-4 pb-20 pt-4">
 
-  <%= turbo_stream_from Current.user, :voice_memos %>
-  <% (@voice_memos || []).each do |voice_memo| %>
-    <%= render "voice_memos/voice_memo", voice_memo: voice_memo %>
-  <% end %>
-
   <div class="card bg-base-100 w-full shadow-sm">
     <div class="card-body">
 
