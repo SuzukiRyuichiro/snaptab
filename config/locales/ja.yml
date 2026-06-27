@@ -49,3 +49,28 @@ ja:
       subtotal: "小計"
       date: ""
       expense: "支出"
+    edit:
+      title: "支出を編集"
+      amount: "金額"
+      description: "内容"
+      category: "カテゴリー"
+      currency: "通貨"
+      date: "日付"
+      save: "保存"
+      cancel: "キャンセル"
+    update:
+      success: "支出を更新しました。"
+  voice_memos:
+    record:
+      hold: "長押しして話す"
+      recording: "録音中… 指を離して保存"
+      denied: "マイクへのアクセスが拒否されました。"
+    create:
+      processing: "受け付けました！支出を追加しています。"
+      error: "問題が発生しました。もう一度録音してください。"
+    status:
+      processing: "支出を文字起こししています…"
+      completed: "追加しました"
+      failed: "録音を認識できませんでした。もう一度お試しください。"
+      dismiss: "閉じる"
+      edit: "編集"

@@ -1,0 +1,24 @@
+<%= tag.div id: dom_id(voice_memo) do %>
+  <% if voice_memo.failed? %>
+    <div role="alert" class="alert alert-error" data-controller="dismiss">
+      <%= icon "microphone", size: 5 %>
+      <span><%= t("voice_memos.status.failed") %></span>
+      <button type="button" class="btn btn-ghost btn-xs btn-circle" data-action="dismiss#close" aria-label="<%= t("voice_memos.status.dismiss") %>">✕</button>
+    </div>
+  <% elsif voice_memo.completed? %>
+    <div role="alert" class="alert alert-success" data-controller="dismiss">
+      <span>
+        <%= t("voice_memos.status.completed") %>
+        <%= number_to_currency(voice_memo.expense.amount, unit: "¥", precision: 0) %>
+        · <%= t("categories.#{voice_memo.expense.category.slug}") %>
+      </span>
+      <%= link_to t("voice_memos.status.edit"), edit_expense_path(voice_memo.expense), class: "btn btn-ghost btn-xs" %>
+      <button type="button" class="btn btn-ghost btn-xs btn-circle" data-action="dismiss#close" aria-label="<%= t("voice_memos.status.dismiss") %>">✕</button>
+    </div>
+  <% else %>
+    <div role="alert" class="alert">
+      <span class="loading loading-spinner loading-sm"></span>
+      <span><%= t("voice_memos.status.processing") %></span>
+    </div>
+  <% end %>
+<% end %>

@@ -5,3 +5,9 @@ one:
 
 two:
   slug: :entertainment
+
+food:
+  slug: food
+
+misc:
+  slug: misc

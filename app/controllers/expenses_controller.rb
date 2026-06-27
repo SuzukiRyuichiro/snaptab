@@ -35,8 +35,37 @@ class ExpensesController < ApplicationController
   def new
     @expense = Expense.new
     authorize @expense
+
+    # Live voice-memo status lives here so the user can record several expenses in a
+    # row without leaving the page; updates stream in via Turbo (see VoiceMemo).
+    @voice_memos = policy_scope(VoiceMemo).in_progress.order(created_at: :desc)
   end
 
   def create
+  end
+
+  def edit
+    @expense = Expense.find(params[:id])
+    authorize @expense
+    @categories = Category.all
+  end
+
+  def update
+    @expense = Expense.find(params[:id])
+    authorize @expense
+
+    if @expense.update(expense_params)
+      redirect_to expenses_path(month: @expense.spent_at.strftime("%Y-%m")),
+                  notice: t("expenses.update.success"), status: :see_other
+    else
+      @categories = Category.all
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def expense_params
+    params.require(:expense).permit(:amount, :description, :category_id, :currency, :spent_at)
   end
 end

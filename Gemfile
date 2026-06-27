@@ -71,3 +71,6 @@ group :test do
 end
 
 gem "pundit", "~> 2.5"
+
+# OpenAI-compatible client, pointed at Groq for Whisper transcription + LLM parsing
+gem "ruby-openai", "~> 8.1"

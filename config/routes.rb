@@ -5,9 +5,10 @@ Rails.application.routes.draw do
   root to: "pages#home"
 
   get "settings", to: "pages#settings", as: :settings
-  resource :user, only: [:update]
+  resource :user, only: [ :update ]
 
-  resources :expenses, only: %i[new index]
+  resources :expenses, only: %i[new index edit update]
+  resources :voice_memos, only: %i[create]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

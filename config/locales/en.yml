@@ -48,3 +48,28 @@ en:
       total: "Total"
       subtotal: "Subtotal"
       expense: "Expenses"
+    edit:
+      title: "Edit expense"
+      amount: "Amount"
+      description: "Description"
+      category: "Category"
+      currency: "Currency"
+      date: "Date"
+      save: "Save"
+      cancel: "Cancel"
+    update:
+      success: "Expense updated."
+  voice_memos:
+    record:
+      hold: "Hold to speak"
+      recording: "Recording… release to save"
+      denied: "Microphone access was denied."
+    create:
+      processing: "Got it! We're adding your expense."
+      error: "Something went wrong. Please try recording again."
+    status:
+      processing: "Transcribing your expense…"
+      completed: "Added"
+      failed: "We couldn't understand that recording. Please try again."
+      dismiss: "Dismiss"
+      edit: "Edit"

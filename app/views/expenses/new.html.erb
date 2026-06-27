@@ -1,5 +1,15 @@
-<div class="w-full h-screen flex flex-col justify-center-safe">
-  <div class="w-full">
+<div class="w-full min-h-screen flex flex-col">
+
+  <%# Live status of voice memos being transcribed. Stays at the top so the user can
+      keep recording; each memo updates in place via Turbo Stream (see VoiceMemo). %>
+  <div class="flex flex-col gap-2 pt-4">
+    <%= turbo_stream_from Current.user, :voice_memos %>
+    <% (@voice_memos || []).each do |voice_memo| %>
+      <%= render "voice_memos/voice_memo", voice_memo: voice_memo %>
+    <% end %>
+  </div>
+
+  <div class="w-full flex-1 flex flex-col justify-center-safe">
 
     <div class="text-center">
       <h1 class="text-4xl font-bold"><%= t('expenses.new.title') %></h1>
@@ -13,30 +23,38 @@
         </div>
         <span class="text-xl font-semibold"><%= t('expenses.new.scan_receipt') %></span>
       <% end %>
-      <button
-        class="
-          w-full grid py-10 btn btn-block h-auto btn-outline border-primary/10
-          place-items-center
-        "
-        onclick="voiceInputModal.showModal()"
+      <div
+        data-controller="audio-recorder"
+        data-audio-recorder-hold-label-value="<%= t('voice_memos.record.hold') %>"
+        data-audio-recorder-recording-label-value="<%= t('voice_memos.record.recording') %>"
+        data-audio-recorder-denied-label-value="<%= t('voice_memos.record.denied') %>"
       >
-        <div class=" bg-primary/10 w-20 h-20 grid place-items-center rounded-full ">
-          <%= icon "microphone", stroke_width: 2, size: 8 %>
-        </div>
-        <span class="text-xl font-semibold"><%= t('expenses.new.voice_input') %></span>
-      </button>
-    </div>
-    <!-- Voice input modal placeholder -->
-    <dialog id="voiceInputModal" class="modal">
-      <div class="modal-box">
-        <h3 class="text-lg font-bold">Hello!</h3>
-        <p class="py-4">Press ESC key or click the button below to close</p>
-        <div class="modal-action">
-          <form method="dialog">
-            <button class="btn">Close</button>
-          </form>
-        </div>
+        <%= form_with url: voice_memos_path, method: :post, multipart: true, data: { audio_recorder_target: "form" } do %>
+          <%= file_field_tag :audio, accept: "audio/*", class: "hidden", data: { audio_recorder_target: "input" } %>
+        <% end %>
+
+        <button
+          type="button"
+          class="
+            w-full grid py-10 btn btn-block h-auto btn-outline border-primary/10
+            place-items-center select-none touch-none
+          "
+          data-audio-recorder-target="button"
+          data-action="
+            pointerdown->audio-recorder#start
+            pointerup->audio-recorder#stop
+            pointerleave->audio-recorder#stop
+            pointercancel->audio-recorder#stop
+            contextmenu->audio-recorder#prevent
+          "
+        >
+          <div class=" bg-primary/10 w-20 h-20 grid place-items-center rounded-full ">
+            <%= icon "microphone", stroke_width: 2, size: 8 %>
+          </div>
+          <span class="text-xl font-semibold"><%= t('expenses.new.voice_input') %></span>
+          <span class="text-sm font-normal text-base-content/60" data-audio-recorder-target="status"></span>
+        </button>
       </div>
-    </dialog>
+    </div>
   </div>
 </div>
